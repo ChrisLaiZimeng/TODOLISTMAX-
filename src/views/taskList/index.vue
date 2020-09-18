@@ -1,9 +1,9 @@
 <template>
-  <div id="subject" class="container-fluid">
+  <div id="taskList" class="container-fluid">
     <div id="buttonBar" class="container-fluid">
-      <router-link to="/toDoList" class="tag" :class="{choosed: activeTag0}" @click.native="changeTag(0)">所有事项</router-link>
-      <router-link to="/notFinished" class="tag" :class="{choosed: activeTag1}" @click.native="changeTag(1)">代办事项</router-link>
-      <router-link to="/finishedTask" class="tag" :class="{choosed: activeTag2}" @click.native="changeTag(2)">已完成事项</router-link>
+      <router-link to="/taskList/toDoList" class="tag" :class="{choosed: activeTag0}" @click.native="changeTag(0)">所有事项</router-link>
+      <router-link to="/taskList/notFinished" class="tag" :class="{choosed: activeTag1}" @click.native="changeTag(1)">代办事项</router-link>
+      <router-link to="/taskList/finishedTask" class="tag" :class="{choosed: activeTag2}" @click.native="changeTag(2)">已完成事项</router-link>
     </div>
     <router-view></router-view>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'subject',
+  name: 'taskList',
   data () {
     return {
       activeTag0: true,
@@ -51,10 +51,10 @@ export default {
   .router-link-acitve{
     text-decoration: none;
   }
-  #subject {
-    background-color: rgb(106, 163, 255);
+  #taskList {
+    background-color: #7ed48b;
     padding: 1em;
-    min-height: 45em;
+    height: 100vh;
   }
   #buttonBar{
     display: flex;

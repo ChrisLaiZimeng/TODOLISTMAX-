@@ -2,6 +2,10 @@
 
 > tomato TODO list
 
+# 功能
+> 利用 https://neteasecloudmusicapi.vercel.app/ 接口添加了登录功能
+> 优化了整个项目的结构
+
 ## Build Setup
 
 ``` bash

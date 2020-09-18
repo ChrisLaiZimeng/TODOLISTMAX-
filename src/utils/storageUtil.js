@@ -6,14 +6,18 @@
    有多个功能需要暴露
  */
 const TODOS = 'todos'
+
 export default {
   readTasks () {
-    return JSON.parse(localStorage.getItem(TODOS) || '[]')
+    return JSON.parse(sessionStorage.getItem(TODOS) || '[]')
   },
   saveTasks (tasks) {
-    localStorage.setItem(TODOS, JSON.stringify(tasks))
+    sessionStorage.setItem(TODOS, JSON.stringify(tasks))
   },
   clearTasks () {
-    localStorage.clear()
+    sessionStorage.clear()
+  },
+  getAccount () {
+    return sessionStorage.getItem('account')
   }
 }

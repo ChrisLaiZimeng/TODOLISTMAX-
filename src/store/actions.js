@@ -38,13 +38,12 @@ export default{
     commit('changePos', {index, upDown})
   },
   deleteAll ({commit}) {
-    commit('clear')
-    commit('updateFinishedCount')
+    if (window.confirm('确认删除全部?')) {
+      commit('clear')
+      commit('updateFinishedCount')
+    }
+  },
+  changeLoginState ({commit}) {
+    commit('changeToLogIn')
   }
-  // reqTask ({commit}) {
-  //   setTimeout(() => {
-  //     const tasks = storageUtil.readTasks()
-  //     commit(recieveTasks, tasks)
-  //   },500)
-  // }
 }

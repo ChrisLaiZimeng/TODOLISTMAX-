@@ -19,7 +19,7 @@
 <script>
 import {mapState} from 'vuex'
 export default {
-  name: 'finishedTasks',
+  name: 'notFinished',
   data () {
     return {
       inputContent: ''

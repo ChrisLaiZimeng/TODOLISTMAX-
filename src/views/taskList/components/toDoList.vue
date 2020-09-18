@@ -2,15 +2,13 @@
   <div id="toDoList" class="list-group">
     <ul v-if="showNoTask">
       <li class="list-group-item strCenter">
-        <input class="quickInput" v-model="inputContent" type="text" placeholder="快捷加入代办事项" v-on:keyup.enter="quickAddOne(inputContent)"/>
-        <span class="glyphicon glyphicon-plus addIcon" aria-hidden="true"></span>
+        <input class="quickInput" v-model="inputContent" type="text" placeholder="加入代办事项" v-on:keyup.enter="quickAddOne(inputContent)"/>
       </li>
       <li class="list-group-item">没有事项</li>
     </ul>
     <ul v-else>
       <li class="list-group-item strCenter">
-        <input class="quickInput" v-model="inputContent" type="text" placeholder="快捷加入代办事项" v-on:keyup.enter="quickAddOne()"/>
-        <span class="glyphicon glyphicon-plus addIcon" aria-hidden="true"></span>
+        <input class="quickInput" v-model="inputContent" type="text" placeholder="加入代办事项" v-on:keyup.enter="quickAddOne()"/>
       </li>
       <li class="list-group-item strCenter taskItem" v-for="(item, index) in tasks" :key="index" @click="finishOne(index)">
         <input type="checkbox" :checked="item.finished"/>
@@ -20,12 +18,11 @@
         <span class="glyphicon glyphicon-chevron-up" @click="upOrDown([index,true]),finishOne(index)"></span>
         <span class="glyphicon glyphicon-chevron-down" @click="upOrDown([index,false]),finishOne(index)"></span>
       </li>
-      <li class="list-group-item stastic">
+      <li class="list-group-item strCenter">
         <input type="checkbox" :checked="finishedAll" @click="checkAllNot()"/>
         &nbsp;
         已完成 {{finishedCount}} 个 / 共 {{tasks.length}} 个
-        <button @click="deleteAll">删除全部</button>
-        <!-- <button @click="clear">删除缓存</button> -->
+        <button class="clearall" @click="deleteAll">删除全部</button>
       </li>
     </ul>
   </div>
@@ -33,13 +30,22 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import storageUtils from '../utils/storageUtil.js'
+import storageUtils from '../../../utils/storageUtil.js'
 export default {
   name: 'toDoList',
   data () {
     return {
       inputContent: ''
     }
+  },
+  mounted () {
+    let count = 0
+    this.$store.state.tasks.forEach(function (value) {
+      if (value.finished === true) {
+        count++
+      }
+    })
+    this.$store.state.finishedCount = count
   },
   computed: {
     ...mapState(['tasks', 'finishedCount']),
@@ -54,12 +60,15 @@ export default {
   },
   methods: {
     ...mapActions(['deleteOne', 'finishOne', 'checkAllNot', 'upOrDown', 'deleteAll']),
-    clear () {
-      storageUtils.clearTasks()
-    },
+    // clear () {
+    //   storageUtils.clearTasks()
+    // },
     quickAddOne () {
       this.$store.dispatch('quickAddOne', this.inputContent)
       this.inputContent = ''
+    },
+    showAddList () {
+      this.$store.state.addList = !this.$store.state.addList
     }
   },
   watch: {
@@ -89,7 +98,7 @@ export default {
     padding: 0;
   }
   .quickInput {
-    width: 95%;
+    width: 100%;
     height: 3em;
     padding: 1em;
   }
@@ -101,9 +110,6 @@ export default {
   }
   .glyphicon:hover {
     cursor: pointer;
-  }
-  .glyphicon-plus {
-    font-size: 2em;
   }
   .glyphicon-minus, .glyphicon-chevron-up, .glyphicon-chevron-down{
     font-size: 1.5em;
@@ -127,5 +133,12 @@ export default {
   }
   .addIcon {
     margin: 0 1% 0 3%;
+  }
+  .clearall {
+    border: none;
+    border-radius: 7px;
+    background-color: #c1d3c1;
+    position: relative;
+    left: 2em;
   }
 </style>

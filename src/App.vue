@@ -1,19 +1,12 @@
 <template>
   <div id="app">
-    <navComponent></navComponent>
-    <subject></subject>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import navComponent from './components/navComponent.vue'
-import subject from './components/subject.vue'
 export default {
-  name: 'App',
-  components: {
-    navComponent,
-    subject
-  }
+  name: 'App'
 }
 </script>
 
@@ -23,6 +16,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
-  min-width: 768px;
+  min-width: 300px;
 }
 </style>

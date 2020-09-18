@@ -18,9 +18,21 @@ export default{
     state.finishedCount = counting
   },
   changeAllState (state) {
+    let count = 0
     state.tasks.forEach(function (value) {
-      value.finished = !value.finished
+      if (value.finished === true) {
+        count++
+      }
     })
+    if (count === state.tasks.length) {
+      state.tasks.forEach(function (value) {
+        value.finished = false
+      })
+    } else {
+      state.tasks.forEach(function (value) {
+        value.finished = true
+      })
+    }
   },
   changePos (state, {index, upDown}) {
     if (upDown && index !== 0) { // true为上移
@@ -47,5 +59,8 @@ export default{
   },
   clear (state) {
     state.tasks = []
+  },
+  changeToLogIn (state) {
+    state.toLogIn = !state.toLogIn
   }
 }
